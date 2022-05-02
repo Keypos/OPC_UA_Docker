@@ -12,33 +12,44 @@ server.set_endpoint(url)
 name = "OPC_SIMULATION_SERVER"
 addspace = server.register_namespace(name)
 
+
 node = server.get_objects_node()
 
+
 Param = node.add_object(addspace, "Parameters")
+
 
 Temp = Param.add_variable(addspace, "Temperature", 0)
 Press = Param.add_variable(addspace, "Pressure", 0)
 Time = Param.add_variable(addspace, "Time", 0)
 
+
 Temp.set_writable()
 Press.set_writable()
 Time.set_writable()
-
 server.start()
+
+
 print("Server started at {}".format(url))
 
-while True:
-    Temperature = randint(10,50)
-    Pressure = randint(200, 999)
-    TIME = datetime.datetime.now() 
 
-    print(Temperature, Pressure, TIME)
+try:
 
-    Temp.set_value(Temperature)
-    Press.set_value(Pressure)
+    while True:
+        Temperature = randint(10, 50)
+        Pressure = randint(200, 999)
+        TIME = datetime.datetime.now()
+        TIME2 = datetime.datetime.now()
 
-    Time.set_value(TIME)
+        print(Temperature, Pressure, TIME)
 
-    time.sleep(0.1)
+        Temp.set_value(Temperature)
+        Press.set_value(Pressure)
 
-print("Server exited")
+        Time.set_value(TIME)
+
+        time.sleep(1)
+except KeyboardInterrupt:
+    pass
+print("Server closed")
+server.stop()
