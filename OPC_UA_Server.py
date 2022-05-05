@@ -39,7 +39,6 @@ try:
         Temperature = randint(10, 50)
         Pressure = randint(200, 999)
         TIME = datetime.datetime.now()
-        TIME2 = datetime.datetime.now()
 
         print(Temperature, Pressure, TIME)
 
